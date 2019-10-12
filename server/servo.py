@@ -21,10 +21,10 @@ look_direction = 1
 pwm = Adafruit_PCA9685.PCA9685()
 pwm.set_pwm_freq(50)
 
-look_max = 500
-look_min = 100
+look_max = 180
+look_min = 0
 
-org_pos = 300
+org_pos = 0
 
 def ctrl_range(raw, max_genout, min_genout):
 	if raw > max_genout:
@@ -37,29 +37,29 @@ def ctrl_range(raw, max_genout, min_genout):
 
 
 def camera_ang(direction, ang):
-	global org_pos
+	new_pos
 	if ang == 'no':
-		ang = 50
+		ang = 10
 	if look_direction:
 		if direction == 'lookdown':
-			org_pos+=ang
-			org_pos = ctrl_range(org_pos, look_max, look_min)
+			new_pos+=ang
+			new_pos = ctrl_range(org_pos, look_max, look_min)
 		elif direction == 'lookup':
-			org_pos-=ang
-			org_pos = ctrl_range(org_pos, look_max, look_min)
+			new_pos-=ang
+			new_pos = ctrl_range(org_pos, look_max, look_min)
 		elif direction == 'home':
-			org_pos = 300
+			new_pos = org_pos
 	else:
 		if direction == 'lookdown':
-			org_pos-=ang
-			org_pos = ctrl_range(org_pos, look_max, look_min)
+			new_pos-=ang
+			new_pos = ctrl_range(org_pos, look_max, look_min)
 		elif direction == 'lookup':
-			org_pos+=ang
-			org_pos = ctrl_range(org_pos, look_max, look_min)
+			new_pos+=ang
+			new_pos = ctrl_range(org_pos, look_max, look_min)
 		elif direction == 'home':
-			org_pos = 300	
+			new_pos = org_pos	
 
-	pwm.set_all_pwm(0,org_pos)
+	pwm.set_all_pwm(0,new_pos)
 
 
 def clean_all():

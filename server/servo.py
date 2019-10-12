@@ -37,7 +37,7 @@ def ctrl_range(raw, max_genout, min_genout):
 
 
 def camera_ang(direction, ang):
-	new_pos
+	new_pos = org_pos
 	if ang == 'no':
 		ang = 10
 	if look_direction:

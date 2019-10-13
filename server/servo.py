@@ -60,7 +60,7 @@ def ctrl_range(raw, max_genout, min_genout):
 def camera_ang(direction, ang):
 	global current_pos
 
-	print("direction: " + direction + "current_pos: " + current_pos);
+	print("direction: " + direction + "current_pos: " + (str)current_pos);
 	
 	if ang == 'no':
                 ang = servo_move_increment;

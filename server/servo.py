@@ -110,8 +110,7 @@ if __name__ == '__main__':
         while current_pos < servo_max:
                 current_pos += servo_move_increment;        
                 camera_ang('lookdown', 'no');
-                #pwm.set_pwm(servo_id, 0, int(current_pos));
-                #time.sleep(servo_move_time);
+
         while current_pos > servo_min:
                 current_pos -= servo_move_increment;
                 camera_ang('lookup', 'no');

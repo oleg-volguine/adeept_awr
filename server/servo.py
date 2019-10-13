@@ -30,7 +30,7 @@ servo_min =  100
 servo_max =  260
 
 # default servo position
-default_pos = server_max
+default_pos = servo_max
 
 # current servo position
 current_pos = default_pos;

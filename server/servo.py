@@ -61,7 +61,7 @@ def camera_ang(direction, ang):
 	global current_pos
 	
 	if ang == 'no':
-                ang = servo_move_incerment;
+                ang = servo_move_increment;
 	if look_direction:
 		if direction == 'lookdown':
 			current_pos+=ang

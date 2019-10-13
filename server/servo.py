@@ -93,7 +93,7 @@ def clean_all():
 if __name__ == '__main__':
         
         current_pos = default_pos;
-
+        '''
         while current_pos < servo_max:
                 current_pos += servo_move_increment;        
                 pwm.set_pwm(servo_id, 0, int(current_pos));
@@ -103,7 +103,17 @@ if __name__ == '__main__':
                 current_pos -= servo_move_increment;        
                 pwm.set_pwm(servo_id, 0, int(current_pos));
                 time.sleep(servo_move_time);
+        '''
+        camera_ang('home', 'no');
         
+        while current_pos < servo_max:
+                current_pos += servo_move_increment;        
+                camera_ang('lookup', 'no');
+                #pwm.set_pwm(servo_id, 0, int(current_pos));
+                #time.sleep(servo_move_time);
+        while current_pos > servo_min:
+                current_pos -= servo_move_increment;
+                camera_ang('lookdown', 'no');
 
         
         

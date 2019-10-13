@@ -6,26 +6,47 @@
 # E-mail      : support@adeept.com
 # Author      : William
 # Date        : 2019/02/23
+#
+# --- User Changes ---
+# Modified-by : ov.mymail@gmail.com
+# Modified-on : 2019/10/13
 from __future__ import division
 import time
 import RPi.GPIO as GPIO
 import sys
 import Adafruit_PCA9685
 
-'''
-change this form 1 to 0 to reverse servos
-'''
+#change this form 1 to 0 to reverse servos
 look_direction = 1
 
 
 pwm = Adafruit_PCA9685.PCA9685()
 pwm.set_pwm_freq(50)
 
-look_max = 180
-look_min = 0
+# the min and max lengths of the pulse to drive the servo in ms. Servo sweeps angle from approx 0 to 180
+# the actual range of the servo is bigger, however we reserve a small buffer at eith end, as  robot structure restricts movement
+# moving outside of the range may damage the servo/roobt
+servo_min =  100
+servo_max =  500
 
-org_pos = 0
+# default servo position
+default_pos = (servo_max - servo_min)/2
 
+# current servo position
+current_pos = default_pos;
+
+# defines how much the servo moves each time. We increment/decrement the current value of the pulse by this amount
+# smaller values allow move refined movement, but they may not be practical
+servo_move_increment = 20
+
+# time in seconds, to allow servo to move into position
+servo_move_time = 0.5
+
+# defines which servo to control, 0..15 on the Adafruit PCA9685
+servo_id = 0;
+
+
+# ensures that the new pulse value does not exceed the allowed range 
 def ctrl_range(raw, max_genout, min_genout):
 	if raw > max_genout:
 		raw_output = max_genout
@@ -37,29 +58,32 @@ def ctrl_range(raw, max_genout, min_genout):
 
 
 def camera_ang(direction, ang):
-	new_pos = org_pos
+	global current_pos
+	
 	if ang == 'no':
-		ang = 10
+                ang = servo_move_incerment;
 	if look_direction:
 		if direction == 'lookdown':
-			new_pos+=ang
-			new_pos = ctrl_range(org_pos, look_max, look_min)
+			current_pos+=ang
+			current_pos = ctrl_range(current_pos, servo_max, servo_min)
 		elif direction == 'lookup':
-			new_pos-=ang
-			new_pos = ctrl_range(org_pos, look_max, look_min)
+			current_pos-=ang
+			current_pos = ctrl_range(current_pos, servo_max, servo_min)
 		elif direction == 'home':
-			new_pos = org_pos
+			current_pos = default_pos
 	else:
 		if direction == 'lookdown':
-			new_pos-=ang
-			new_pos = ctrl_range(org_pos, look_max, look_min)
+			current_pos-=ang
+			current_pos = ctrl_range(current_pos, servo_max, servo_min)
 		elif direction == 'lookup':
-			new_pos+=ang
-			new_pos = ctrl_range(org_pos, look_max, look_min)
+			current_pos+=ang
+			current_pos = ctrl_range(current_pos, servo_max, servo_min)
 		elif direction == 'home':
-			new_pos = org_pos	
+			current_pos = default_pos	
 
-	pwm.set_all_pwm(0,new_pos)
+        # send a pulse to servo of the specified length, pulse will start at '0' and end at 'current_pos'.
+	pwm.set_pwm(servo_id, 0, current_pos);
+	time.sleep(servo_move_time);
 
 
 def clean_all():
@@ -67,26 +91,18 @@ def clean_all():
 
 
 if __name__ == '__main__':
-	camera_ang('lookup')
-	time.sleep(1)
-	camera_ang('lookup')
-	time.sleep(1)
-	camera_ang('lookup')
-	time.sleep(1)
-	camera_ang('lookup')
-	time.sleep(1)
-	camera_ang('lookdown')
-	time.sleep(1)
-	camera_ang('lookdown')
-	time.sleep(1)
-	camera_ang('home')
-	time.sleep(1)
-	'''
-	camera_ang('home', 0)
-	time.sleep(0.4)
-	clean_all()
-	while 1:
-		a=input('press any key')
-		print(camera_ang('lookup', 0))
-		pass
-	'''
+        global current_pos = default_pos;
+
+        while current_pos < servo_max:
+                current_pos += servo_move_increment;        
+                pwm.set_pwm(servo_id, 0, current_pos);
+                time.sleep(servo_move_time);
+
+        while current_pos > servo_min:
+                current_pos -= servo_move_increment;        
+                pwm.set_pwm(servo_id, 0, current_pos);
+                time.sleep(servo_move_time);
+        
+
+        
+        

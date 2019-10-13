@@ -27,10 +27,10 @@ pwm.set_pwm_freq(50)
 # the actual range of the servo is bigger, however we reserve a small buffer at eith end, as  robot structure restricts movement
 # moving outside of the range may damage the servo/roobt
 servo_min =  100
-servo_max =  500
+servo_max =  260
 
 # default servo position
-default_pos = (servo_max - servo_min)/2
+default_pos = server_max
 
 # current servo position
 current_pos = default_pos;
@@ -59,8 +59,6 @@ def ctrl_range(raw, max_genout, min_genout):
 
 def camera_ang(direction, ang):
 	global current_pos
-
-	print("direction: " + direction + "current_pos: " + str(current_pos));
 	
 	if ang == 'no':
                 ang = servo_move_increment;
@@ -86,6 +84,7 @@ def camera_ang(direction, ang):
         # send a pulse to servo of the specified length, pulse will start at '0' and end at 'current_pos'.
 	pwm.set_pwm(servo_id, 0, int(current_pos));
 	time.sleep(servo_move_time);
+	print("direction: " + direction + " current_pos: " + str(current_pos));
 
 
 def clean_all():

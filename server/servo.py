@@ -91,7 +91,7 @@ def clean_all():
 
 
 if __name__ == '__main__':
-        global current_pos
+        
         current_pos = default_pos;
 
         while current_pos < servo_max:

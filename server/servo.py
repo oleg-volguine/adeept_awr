@@ -82,7 +82,7 @@ def camera_ang(direction, ang):
 			current_pos = default_pos	
 
         # send a pulse to servo of the specified length, pulse will start at '0' and end at 'current_pos'.
-	pwm.set_pwm(servo_id, 0, current_pos);
+	pwm.set_pwm(servo_id, 0, int(current_pos));
 	time.sleep(servo_move_time);
 
 

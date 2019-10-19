@@ -356,8 +356,7 @@ if __name__ == '__main__':
             fps_threading.start()                                     #Thread starts
             break
         except:
-            LED = LED.LED()
-            LED.colorWipe(Color(0,0,0))
+            LED.colorWipe(LED,Color(0,0,0))
 
         try:
             LED.colorWipe(Color(0,80,255))

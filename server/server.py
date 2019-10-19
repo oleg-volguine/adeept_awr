@@ -293,11 +293,10 @@ if __name__ == '__main__':
     PORT = 10223                              #Define port serial 
     BUFSIZ = 1024                             #Define buffer size
     ADDR = (HOST, PORT)
+    LED = LED.LED()
     
     try:
-        # led to blue colour..waiting for connection
-        
-        LED = LED.LED()
+        # led to blue colour..waiting for connection    
         LED.colorWipe(Color(0,239,255))
     except:
         print('Use "sudo pip3 install rpi_ws281x" to install WS_281x package')

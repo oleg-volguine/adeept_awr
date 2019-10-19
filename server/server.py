@@ -45,7 +45,7 @@ FindColorMode = 0
 SportModeOn = 0
 SpeedBase = 70
 
-LED = LED.LED()
+LED
 
 client_connected = False
 

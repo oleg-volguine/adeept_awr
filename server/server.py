@@ -153,7 +153,7 @@ def blink_led(color):
         #global LED
         #LED.blink(color)
         print("blink")
-        sleep(1)
+        time.sleep(1)
 
 
 def run():

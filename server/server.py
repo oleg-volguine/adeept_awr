@@ -157,7 +157,7 @@ def blink_led(color):
 
 
 def run():
-    global direction_command, turn_command, pos_input, catch_input, cir_input, ultrasonicMode, FindLineMode, FindColorMode, SportModeOn
+    global LED, direction_command, turn_command, pos_input, catch_input, cir_input, ultrasonicMode, FindLineMode, FindColorMode, SportModeOn
     move.setup()
     findline.setup()
 

@@ -45,8 +45,6 @@ FindColorMode = 0
 SportModeOn = 0
 SpeedBase = 70
 
-LED
-
 client_connected = False
 
 
@@ -157,7 +155,7 @@ def blink_led(color):
 
 
 def run():
-    global LED, direction_command, turn_command, pos_input, catch_input, cir_input, ultrasonicMode, FindLineMode, FindColorMode, SportModeOn
+    global direction_command, turn_command, pos_input, catch_input, cir_input, ultrasonicMode, FindLineMode, FindColorMode, SportModeOn
     move.setup()
     findline.setup()
 
@@ -291,7 +289,6 @@ def run():
 
 
 if __name__ == '__main__':
-    global LED
     HOST = ''
     PORT = 10223                              #Define port serial 
     BUFSIZ = 1024                             #Define buffer size

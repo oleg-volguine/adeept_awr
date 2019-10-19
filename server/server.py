@@ -47,7 +47,7 @@ SpeedBase = 70
 
 client_connected = False
 
-LED
+LED = LED.LED()
 
 
 
@@ -288,14 +288,13 @@ def run():
 
 
 if __name__ == '__main__':
-    global LED
+    global led
     HOST = ''
     PORT = 10223                              #Define port serial 
     BUFSIZ = 1024                             #Define buffer size
     ADDR = (HOST, PORT)
 
     try:
-        LED  = LED.LED()
         # led to blue colour..waiting for connection
         LED.colorWipe(Color(0,239,255))
     except:

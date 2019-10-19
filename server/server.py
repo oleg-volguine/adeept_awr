@@ -149,7 +149,6 @@ def ap_thread():
 
 
 def blink_led(color):
-    global LED
     while client_connected == False:
         LED.blink(color)
 

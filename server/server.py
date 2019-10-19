@@ -146,7 +146,7 @@ def ap_thread():
     os.system("sudo create_ap wlan0 eth0 AdeeptCar 12345678")
 
 
-def blink_led(LED, color):
+def blink_led(self, LED, color):
     while (client_connected == False):
         #LED = LED.LED()
         LED.blink(color)

@@ -44,7 +44,7 @@ class LED:
 
         
     # Define functions which animate LEDs in various ways.
-    def colorWipe(strip, color, wait_ms=0):
+    def colorWipe(self, strip, color, wait_ms=0):
         """Wipe color across display a pixel at a time."""
         for i in range(self.strip.numPixels()):
             self.strip.setPixelColor(i, color)
@@ -52,7 +52,7 @@ class LED:
             time.sleep(wait_ms / 1000.0)
 
 
-    def blink(strip, color, wait_ms=0, blink_wait_ms=1000, iterations=3):
+    def blink(self, strip, color, wait_ms=0, blink_wait_ms=1000, iterations=3):
         """Blink."""
         for i in range(iterations):
             self.colorWipe(strip, color, wait_ms)
@@ -62,7 +62,7 @@ class LED:
             time.sleep(blink_wait_ms / 1000.0)
 
 
-    def theaterChase(strip, color, wait_ms=50, iterations=10):
+    def theaterChase(self, strip, color, wait_ms=50, iterations=10):
         """Movie theater light style chaser animation."""
         for j in range(iterations):
             for q in range(3):

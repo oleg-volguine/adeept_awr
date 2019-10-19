@@ -52,7 +52,7 @@ def colorWipe(strip, color, wait_ms=0):
         time.sleep(wait_ms / 1000.0)
 
 
-def blink(strip, color, wait_ms=0, blink_wait_ms=1000, iterations=3):
+def blink(self, strip, color, wait_ms=0, blink_wait_ms=1000, iterations=3):
     """Blink."""
     for i in range(iterations):
         colorWipe(strip, color, wait_ms)

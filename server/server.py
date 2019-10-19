@@ -45,6 +45,8 @@ FindColorMode = 0
 SportModeOn = 0
 SpeedBase = 70
 
+LED = LED.LED()
+
 client_connected = False
 
 
@@ -148,8 +150,8 @@ def ap_thread():
 
 def blink_led(color):
     while (client_connected == False):
-        newLED = LED.LED()
-        newLED.blink(color)
+        global LED
+        LED.blink(color)
 
 
 def run():
@@ -295,7 +297,6 @@ if __name__ == '__main__':
 
     try:
         # led to blue colour..waiting for connection
-        LED = LED.LED()
         LED.colorWipe(Color(0,239,255))
     except:
         print('Use "sudo pip3 install rpi_ws281x" to install WS_281x package')

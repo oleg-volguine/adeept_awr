@@ -148,9 +148,10 @@ def ap_thread():
     os.system("sudo create_ap wlan0 eth0 AdeeptCar 12345678")
 
 
-def blink_led(led, color):
+def blink_led(color):
+    global LED
     while client_connected == False:
-        led.blink(color)
+        LED.blink(color)
 
 
 def run():
@@ -288,7 +289,7 @@ def run():
 
 
 if __name__ == '__main__':
-    global led
+    global LED
     HOST = ''
     PORT = 10223                              #Define port serial 
     BUFSIZ = 1024                             #Define buffer size

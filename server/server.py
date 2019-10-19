@@ -47,8 +47,6 @@ SpeedBase = 70
 
 client_connected = False
 
-LED = LED.LED()
-
 
 
 def findline_thread():       #Line tracking mode
@@ -150,8 +148,8 @@ def ap_thread():
 
 def blink_led(color):
     while (client_connected == False):
-     #   LED.blink(color)
-     print('blinking')
+        LED = LED.LED()
+        LED.blink(color)
 
 
 def run():
@@ -297,6 +295,7 @@ if __name__ == '__main__':
 
     try:
         # led to blue colour..waiting for connection
+        LED = LED.LED()
         LED.colorWipe(Color(0,239,255))
     except:
         print('Use "sudo pip3 install rpi_ws281x" to install WS_281x package')

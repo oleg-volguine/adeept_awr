@@ -288,14 +288,13 @@ def run():
 
 
 if __name__ == '__main__':
-
+    global LED
     HOST = ''
     PORT = 10223                              #Define port serial 
     BUFSIZ = 1024                             #Define buffer size
     ADDR = (HOST, PORT)
 
     try:
-        global LED;
         LED  = LED.LED()
         # led to blue colour..waiting for connection
         LED.colorWipe(Color(0,239,255))
@@ -335,7 +334,7 @@ if __name__ == '__main__':
 
             print('waiting for connection...')
             # Blink LED blue colour..waiting for connection 
-            blink_led_threading=threading.Thread(target=blink_led, args=(led,Color(0,239,255),))
+            blink_led_threading=threading.Thread(target=blink_led, args=(LED,Color(0,239,255),))
             blink_led_threading.setDaemon(True)                             
             blink_led_threading.start()
             

@@ -289,7 +289,7 @@ def run():
 
 
 if __name__ == '__main__':
-    global LED
+
     HOST = ''
     PORT = 10223                              #Define port serial 
     BUFSIZ = 1024                             #Define buffer size

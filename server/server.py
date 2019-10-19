@@ -293,10 +293,11 @@ if __name__ == '__main__':
     PORT = 10223                              #Define port serial 
     BUFSIZ = 1024                             #Define buffer size
     ADDR = (HOST, PORT)
-    LED = LED.LED()
+    
     
     try:
-        # led to blue colour..waiting for connection    
+        # led to blue colour..waiting for connection
+        LED = LED.LED()
         LED.colorWipe(Color(0,239,255))
     except:
         print('Use "sudo pip3 install rpi_ws281x" to install WS_281x package')
@@ -355,6 +356,7 @@ if __name__ == '__main__':
             fps_threading.start()                                     #Thread starts
             break
         except:
+            LED = LED.LED()
             LED.colorWipe(Color(0,0,0))
 
         try:

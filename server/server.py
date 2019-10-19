@@ -5,6 +5,10 @@
 # E-mail      : support@adeept.com
 # Author      : William
 # Date        : 2019/02/23
+#
+# --- User Changes ---
+# Modified-by : Oleg Volguine, ov.mymail@gmail.com
+# Modified-on : 2019/10/19
 
 import socket
 import time
@@ -40,6 +44,9 @@ FindColorMode = 0
 
 SportModeOn = 0
 SpeedBase = 70
+
+client_connected = False
+
 
 
 def findline_thread():       #Line tracking mode
@@ -135,8 +142,14 @@ def FPV_thread():
     fpv.capture_thread(addr[0])
 
 
-def  ap_thread():
+def ap_thread():
     os.system("sudo create_ap wlan0 eth0 AdeeptCar 12345678")
+
+
+def blink_led(color):
+    while client_connected == False:
+        LED  = LED.LED()
+        LED.blink(color)
 
 
 def run():
@@ -282,7 +295,8 @@ if __name__ == '__main__':
 
     try:
         LED  = LED.LED()
-        LED.colorWipe(Color(255,16,0))
+        # led to blue colour..waiting for connection
+        LED.colorWipe(Color(0,239,255))
     except:
         print('Use "sudo pip3 install rpi_ws281x" to install WS_281x package')
         pass
@@ -316,9 +330,23 @@ if __name__ == '__main__':
             tcpSerSock.setsockopt(socket.SOL_SOCKET,socket.SO_REUSEADDR,1)
             tcpSerSock.bind(ADDR)
             tcpSerSock.listen(5)                      #Start server,waiting for client
+
             print('waiting for connection...')
+            # Blink LED blue colour..waiting for connection 
+            blink_led_threading=threading.Thread(target=blink_led, args(Color(0,239,255)))
+            blink_led_threading.setDaemon(True)                             
+            blink_led_threading.start()
+            
             tcpCliSock, addr = tcpSerSock.accept()
+
             print('...connected from :', addr)
+            client_connected = True
+            
+            # LED to green colour...connected.
+            LED.colorWipe(Color(255,255,255))
+            time.sleep(0.5)
+            # LED to green white colour...ready to run.
+            LED.colorWipe(Color(255,255,255))
 
             fpv=FPV.FPV()
             fps_threading=threading.Thread(target=FPV_thread)         #Define a thread for FPV and OpenCV

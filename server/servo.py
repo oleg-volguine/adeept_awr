@@ -8,8 +8,9 @@
 # Date        : 2019/02/23
 #
 # --- User Changes ---
-# Modified-by : ov.mymail@gmail.com
+# Modified-by : Oleg Volguine, ov.mymail@gmail.com
 # Modified-on : 2019/10/13
+
 from __future__ import division
 import time
 import RPi.GPIO as GPIO

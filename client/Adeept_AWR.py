@@ -33,6 +33,8 @@ ultra_data = 'Ultrasonic OFF'
 
 SportModeOn = 0
 
+client_connected = False
+
 ########>>>>>VIDEO<<<<<########
 
 def video_thread():

@@ -47,6 +47,8 @@ SpeedBase = 70
 
 client_connected = False
 
+LED
+
 
 
 def findline_thread():       #Line tracking mode
@@ -146,10 +148,9 @@ def ap_thread():
     os.system("sudo create_ap wlan0 eth0 AdeeptCar 12345678")
 
 
-def blink_led(color):
+def blink_led(led, color):
     while client_connected == False:
-        LED = LED.LED()
-        LED.blink(color)
+        led.blink(color)
 
 
 def run():
@@ -294,6 +295,7 @@ if __name__ == '__main__':
     ADDR = (HOST, PORT)
 
     try:
+        global LED;
         LED  = LED.LED()
         # led to blue colour..waiting for connection
         LED.colorWipe(Color(0,239,255))
@@ -333,7 +335,7 @@ if __name__ == '__main__':
 
             print('waiting for connection...')
             # Blink LED blue colour..waiting for connection 
-            blink_led_threading=threading.Thread(target=blink_led, args=(Color(0,239,255),))
+            blink_led_threading=threading.Thread(target=blink_led, args=(led,Color(0,239,255),))
             blink_led_threading.setDaemon(True)                             
             blink_led_threading.start()
             

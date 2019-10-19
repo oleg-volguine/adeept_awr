@@ -148,8 +148,8 @@ def ap_thread():
 
 def blink_led(color):
     while (client_connected == False):
-        #global LED
-        #LED.blink(color)
+        LED = LED.LED()
+        LED.blink(color)
         print("blink")
         time.sleep(1)
 

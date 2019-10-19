@@ -299,6 +299,8 @@ if __name__ == '__main__':
 
     try:
         # led to blue colour..waiting for connection
+        global LED
+        LED = LED.LED()
         LED.colorWipe(Color(0,239,255))
     except:
         print('Use "sudo pip3 install rpi_ws281x" to install WS_281x package')

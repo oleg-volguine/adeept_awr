@@ -149,7 +149,7 @@ def ap_thread():
 
 
 def blink_led(color):
-    while client_connected == False:
+    while (client_connected == False):
         LED.blink(color)
 
 

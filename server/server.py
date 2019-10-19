@@ -146,9 +146,10 @@ def ap_thread():
     os.system("sudo create_ap wlan0 eth0 AdeeptCar 12345678")
 
 
-def blink_led(LED, color):
+def blink_led(color):
     while (client_connected == False):
-        LED.blink(color)
+        newLED = LED.LED()
+        newLED.blink(color)
 
 
 def run():
@@ -332,7 +333,7 @@ if __name__ == '__main__':
 
             print('waiting for connection...')
             # Blink LED blue colour..waiting for connection 
-            blink_led_threading=threading.Thread(target=blink_led, args=(LED,Color(0,239,255),))
+            blink_led_threading=threading.Thread(target=blink_led, args=(Color(0,239,255),))
             blink_led_threading.setDaemon(True)                             
             blink_led_threading.start()
             

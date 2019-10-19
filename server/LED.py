@@ -41,6 +41,8 @@ class LED:
         self.strip = Adafruit_NeoPixel(self.LED_COUNT, self.LED_PIN, self.LED_FREQ_HZ, self.LED_DMA, self.LED_INVERT, self.LED_BRIGHTNESS, self.LED_CHANNEL)
         # Intialize the library (must be called once before other functions).
         self.strip.begin()
+
+        
 # Define functions which animate LEDs in various ways.
 def colorWipe(strip, color, wait_ms=0):
     """Wipe color across display a pixel at a time."""
@@ -134,6 +136,10 @@ if __name__ == '__main__':
     try:
 
         while True:
+            print('Blink animations.')
+            blink(strip, Color(255, 0, 0))
+            blink(strip, Color(255, 255, 0))
+            blink(strip, Color(0, 0, 255))
             print('Color wipe animations.')
             colorWipe(strip, Color(255, 0, 0))  # Red wipe
             colorWipe(strip, Color(0, 255, 0))  # Blue wipe

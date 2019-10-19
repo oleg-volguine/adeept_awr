@@ -291,15 +291,15 @@ def run():
 
 
 if __name__ == '__main__':
-
+    global LED
     HOST = ''
     PORT = 10223                              #Define port serial 
     BUFSIZ = 1024                             #Define buffer size
     ADDR = (HOST, PORT)
-
+    
     try:
         # led to blue colour..waiting for connection
-        global LED
+        
         LED = LED.LED()
         LED.colorWipe(Color(0,239,255))
     except:

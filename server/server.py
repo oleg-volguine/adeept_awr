@@ -150,7 +150,8 @@ def ap_thread():
 
 def blink_led(color):
     while (client_connected == False):
-        LED.blink(color)
+     #   LED.blink(color)
+     print('blinking')
 
 
 def run():

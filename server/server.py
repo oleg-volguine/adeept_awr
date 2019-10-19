@@ -335,7 +335,7 @@ if __name__ == '__main__':
 
             print('waiting for connection...')
             # Blink LED blue colour..waiting for connection 
-            blink_led_threading=threading.Thread(target=blink_led, args=(LED,Color(0,239,255),))
+            blink_led_threading=threading.Thread(target=blink_led, args=(self,LED,Color(0,239,255),))
             blink_led_threading.setDaemon(True)                             
             blink_led_threading.start()
             

@@ -171,22 +171,22 @@ def monitor_distance(LED, min_distance_m=0.1):
     
     while True:
         current_distance = round(ultra.checkdist(),2)
-        if_debug_log("distance: " + current_distance)
+        if_debug_log("distance: " + str(current_distance))
         
         if current_distance > (2*min_distance_m):
             #distance far, normal white LED
             LED.colorWipe(Color(255,255,255))
-            if_debug_log("distance: " + current_distance +  " --> normal, LED white")
+            if_debug_log("distance: " + str(current_distance) +  " --> normal, LED white")
             
         elif (current_distance > (min_distance_m) and current_distance <= (2*min_distance_m)):
             #getting closer, LED yellow
             LED.colorWipe(Color(255,255,0))
-            if_debug_log("distance: " + current_distance +  " --> getting closer, LED yellow")
+            if_debug_log("distance: " + str(current_distance) +  " --> getting closer, LED yellow")
             
         elif current_distance <= min_distance_m:
             #too close, LED red
             LED.colorWipe(Color(255,0,0))
-            if_debug_log("distance: " + current_distance +  " --> too close, LED red")
+            if_debug_log("distance: " + str(current_distance) +  " --> too close, LED red")
 
 
 def run():

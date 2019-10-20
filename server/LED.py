@@ -52,7 +52,7 @@ class LED:
             time.sleep(wait_ms / 1000.0)
 
 
-    def blink(self, color, wait_ms=0, blink_wait_ms=1000, iterations=3):
+    def blink(self, color, wait_ms=0, blink_wait_ms=500, iterations=3):
         """Blink."""
         for i in range(iterations):
             self.colorWipe(color, wait_ms)

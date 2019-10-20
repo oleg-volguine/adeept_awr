@@ -47,6 +47,7 @@ SpeedBase = 70
 
 client_connected = False
 
+debug = True
 
 
 def findline_thread():       #Line tracking mode
@@ -148,10 +149,41 @@ def ap_thread():
 
 def blink_led(LED, color):
     while (client_connected == False):
-        #LED = LED.LED()
         LED.blink(color)
-        print("blink")
-        time.sleep(1)
+        if_debug_log("blink...waiting for connection.")
+
+
+def head_home():
+    servo.camera_ang('home','no')
+    time.sleep(0.2)
+    servo.clean_all()
+
+
+def if_debug_log(debug_text): 
+    if debug:
+        print("DEBUG: " + debug_text)
+
+
+def monitor_distance(LED, min_distance_m=0.1):
+    '''Monitor distance using ultasonic module and change LED based on distance'''
+    
+    while True:
+        current_distance = round(ultra.checkdist(),2)
+        
+        if current_distance > (2*min_distance_m):
+            #distance far, normal white LED
+            LED.colorWipe(Color(255,255,255))
+            if_debug_log("distance: " + current_distance +  " --> normal, LED white")
+            
+        elif (current_distance > (min_distance_m) and current_distance =< (2*min_distance_m)):
+            #getting closer, LED yellow
+            LED.colorWipe(Color(255,255,0))
+            if_debug_log("distance: " + current_distance +  " --> getting closer, LED yellow")
+            
+        elif current_distance =< min_distance_m:
+            #too close, LED red
+            LED.colorWipe(Color(255,0,0))
+            if_debug_log("distance: " + current_distance +  " --> too close, LED red")
 
 
 def run():
@@ -171,6 +203,8 @@ def run():
     findline_threading.setDaemon(True)                             #'True' means it is a front thread,it would close when the mainloop() closes
     findline_threading.start()                                     #Thread starts
     #move.stand()
+
+    
 
     ws_R = 0
     ws_G = 0
@@ -345,10 +379,14 @@ if __name__ == '__main__':
             client_connected = True
             
             # LED to green colour...connected.
-            LED.colorWipe(Color(255,255,255))
+            LED.colorWipe(Color(0,255,0))
             time.sleep(0.5)
             # LED to green white colour...ready to run.
             LED.colorWipe(Color(255,255,255))
+
+            monitor_distance_threading=threading.Thread(target=monitor_distance, args=(LED,))
+            monitor_distance_threading.setDaemon(True)                             
+            monitor_distance_threading.start()
 
             fpv=FPV.FPV()
             fps_threading=threading.Thread(target=FPV_thread)         #Define a thread for FPV and OpenCV

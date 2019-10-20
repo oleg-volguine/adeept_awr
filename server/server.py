@@ -152,6 +152,8 @@ def blink_led(LED, color):
         LED.blink(color)
         if_debug_log("blink...waiting for connection.")
 
+    LED.blink(Color(0,255,0))    
+
 
 def head_home():
     servo.camera_ang('home','no')
@@ -169,6 +171,7 @@ def monitor_distance(LED, min_distance_m=0.1):
     
     while True:
         current_distance = round(ultra.checkdist(),2)
+        if_debug_log("distance: " + current_distance)
         
         if current_distance > (2*min_distance_m):
             #distance far, normal white LED
@@ -378,11 +381,11 @@ if __name__ == '__main__':
             print('...connected from :', addr)
             client_connected = True
             
-            # LED to green colour...connected.
-            LED.colorWipe(Color(0,255,0))
-            time.sleep(0.5)
-            # LED to green white colour...ready to run.
+            time.sleep(3)
+            # LED to white colour...ready to run.
             LED.colorWipe(Color(255,255,255))
+            head_home();
+        
 
             monitor_distance_threading=threading.Thread(target=monitor_distance, args=(LED,))
             monitor_distance_threading.setDaemon(True)                             
